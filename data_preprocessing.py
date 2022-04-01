@@ -1,4 +1,4 @@
-# Text Data Preprocessing Lib
+# Bibliotecas de preprocesamiento de datos de texto
 import nltk
 from nltk.stem import PorterStemmer
 stemmer = PorterStemmer()
@@ -7,9 +7,9 @@ import pickle
 import numpy as np
 import random
 
-words=[] #list of unique roots words in the data
-classes = [] #list of unique tags in the data
-#list of the pair of (['words', 'of', 'the', 'sentence'], 'tags')
+words=[] # Lista de palabras raíz únicas en los datos
+classes = [] # Lista de etiquetas únicas en los datos
+# Lista de pares de la forma: (['palabras', 'de', 'la', 'oración'], 'etiquetas')
 pattern_word_tags_list = [] 
 ignore_words = ['?', '!',',','.', "'s", "'m"]
 
@@ -28,13 +28,13 @@ def create_bot_corpus(words, classes, pattern_word_tags_list, ignore_words):
 
     for intent in intents['intents']:
 
-        # Add all patterns and tags to a list
+        # Agregar todos los patrones y etiquetas a la lista
         for pattern in intent['patterns']:            
             pattern_word = nltk.word_tokenize(pattern)            
             words.extend(pattern_word)                        
             pattern_word_tags_list.append((pattern_word, intent['tag']))
               
-        # Add all tags to the classes list
+        # Agregar todas las etiquetas a la lista "classes"
         if intent['tag'] not in classes:
             classes.append(intent['tag'])
             
@@ -45,9 +45,9 @@ def create_bot_corpus(words, classes, pattern_word_tags_list, ignore_words):
     return stem_words, classes, pattern_word_tags_list
 
 
-# Training Dataset: 
-# Input Text----> as Bag of Words 
-# Tags-----------> as Label
+# Conjunto de datos de entrenamiento: 
+# Texto de entrada ----> como una bolsa de palabras
+# Etiquetas -----------> como etiqueta
 
 def bag_of_words_encoding(stem_words, pattern_word_tags_list):  
     bag = []
